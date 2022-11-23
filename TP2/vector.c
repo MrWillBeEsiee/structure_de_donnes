@@ -4,14 +4,14 @@
 #include"vector.h"
 
 
-p_s_vector vector_alloc(size_t n){
+Vector* vector_alloc(size_t n){
 
-    p_s_vector theVect = (p_s_vector)malloc(sizeof(s_vector));  // Alloue dynamiquement le p_s_vector theVect
+    Vector* theVect = (Vector*)malloc(sizeof(Vector));  // Alloue dynamiquement le Vector* theVect
     theVect -> size = n;
     theVect -> db = calloc(n + 10, n * sizeof(double));  // Initialise le tableau dynamique à 0.0
 }
 
-void vector_free(p_s_vector p_vector){
+void vector_free(Vector* p_vector){
 
     free(p_vector -> db);
     p_vector -> db = NULL;  // Aucune idée de si c'est utile
@@ -19,7 +19,7 @@ void vector_free(p_s_vector p_vector){
     free(p_vector);
 }
 
-void vector_set(p_s_vector p_vector, size_t i, double v){
+void vector_set(Vector* p_vector, size_t i, double v){
 
     if (p_vector == NULL || i > p_vector -> size || i < 0) return;  // Evite tout problème
 
@@ -27,23 +27,23 @@ void vector_set(p_s_vector p_vector, size_t i, double v){
 
 }
 
-void vector_get(p_s_vector p_vector, size_t i, double * pv){
+void vector_get(Vector* p_vector, size_t i, double * pv){
 
     if (p_vector == NULL || i > p_vector -> size || i < 0 || pv == NULL) return;  // Evite tout problème
 
     *pv = (p_vector -> db)[i];
 }
 
-void vector_insert(p_s_vector p_vector, size_t i, double v){
+void vector_insert(Vector* p_vector, size_t i, double v){
 
     if (p_vector == NULL || i > p_vector -> size || i < 0) return;  // Evite tout problème
 
-    p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size + 1) * sizeof(double));  
+    p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size + 1) * sizeof(double));
     (p_vector -> db)[p_vector -> size] = v;  // size = 4 avant, insert à db[4]
     (p_vector -> size) ++;  // Augmenter la taille
 }
 
-void vector_erase(p_s_vector p_vector, size_t i){
+void vector_erase(Vector* p_vector, size_t i){
 
     if (p_vector == NULL || i > p_vector -> size || i < 0) return;  // Evite tout problème
 
@@ -60,8 +60,8 @@ void vector_erase(p_s_vector p_vector, size_t i){
     free(tempDb);
     tempDb = NULL;
 }
-  
-void vector_push_back(p_s_vector p_vector, double v){
+
+void vector_push_back(Vector* p_vector, double v){
 
     if (p_vector == NULL) return;  // Evite tout problème
 
@@ -69,7 +69,7 @@ void vector_push_back(p_s_vector p_vector, double v){
     p_vector -> db[p_vector->size+1] = v;
 }
 
-void vector_pop_back(p_s_vector p_vector){
+void vector_pop_back(Vector* p_vector){
 
     if (p_vector == NULL) return;  // Evite tout problème
 
@@ -78,7 +78,7 @@ void vector_pop_back(p_s_vector p_vector){
     p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size) * sizeof(double));
 }
 
-void vector_clear(p_s_vector p_vector){
+void vector_clear(Vector* p_vector){
 
     if (p_vector == NULL) return;  // Evite tout problème
 
@@ -87,17 +87,17 @@ void vector_clear(p_s_vector p_vector){
     vector_free(p_vector);
 }
 
-int vector_empty(p_s_vector p_vector){
+int vector_empty(Vector* p_vector){
 
-    if (p_vector == NULL) return;  // Evite tout problème
+    if (p_vector == NULL) return 0;  // Evite tout problème
 
     return p_vector->size == 0 ? 0 : 1;
 }
 
-size_t vector_size(p_s_vector p_vector){
+size_t vector_size(Vector* p_vector){
 
-    if (p_vector == NULL) return;  // Evite tout problème
-    
+    if (p_vector == NULL) return 0;  // Evite tout problème
+
     return p_vector->size;
 }
 
