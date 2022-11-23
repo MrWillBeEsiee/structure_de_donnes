@@ -73,7 +73,7 @@ void vector_pop_back(Vector* p_vector){
 
     if (p_vector == NULL) return;  // Evite tout problème
 
-    vector_erase(p_vector, p_vector->size);
+    vector_erase(p_vector, (p_vector->size) - 1);
     p_vector->size--;
     p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size) * sizeof(double));
 }
