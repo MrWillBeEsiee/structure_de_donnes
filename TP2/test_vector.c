@@ -7,7 +7,7 @@ int main(){
 
     void afficheTab(Vector *p_s_Vector){
         printf("[ ");
-        for(int i = 0; i < p_s_Vector -> size; i++){
+        for(size_t i = 0; i < p_s_Vector -> size; i++){
             printf("%f ", p_s_Vector -> db[i]);
         }
         printf("]\n");
@@ -16,13 +16,15 @@ int main(){
     Vector *p_s_Vector = vector_alloc(10);
 
     //Test set
+    printf("Positionnement 15.4 indice 2 et 2.3 indice 7 \n");
+    afficheTab(p_s_Vector);
     vector_set(p_s_Vector,2,15.4);
     vector_set(p_s_Vector,7,2.3);
     afficheTab(p_s_Vector);
 
     //Test insert
+    printf("Insertion 9.1 en position 3 \n");
     vector_insert(p_s_Vector,3,9.1);
-    printf("insert 9.1 en position 3\n");
     afficheTab(p_s_Vector);
 
 
@@ -52,12 +54,10 @@ int main(){
     printf("pointeur = %lf\n",*ptr);
 
     //tester la fonction vector_size
-    /*print("Retourne la taille du tableau (10)\n");
-    printf("taille : %d\n",vector_size(p_s_Vector));*/
+    printf("Retourne la taille du tableau (9)\n");
+    printf("taille : %lu\n",vector_size(p_s_Vector));
 
-    //tester la fonction clear
-    printf("Supprime toutes les valeurs du tableau\n");
-    printf("%d\n", p_s_Vector -> size);
+    printf("Appelle de la fonction vectorclear\n")
 
     //tester la fonction empty
     printf("Retourne 1 si le tableau est vide doit retourner 1\n");

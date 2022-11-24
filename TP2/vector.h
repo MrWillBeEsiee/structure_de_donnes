@@ -2,7 +2,7 @@
 #define __VECTOR_H__
 
 typedef struct struct_vector{
-    int size;
+    size_t size;
     double* db;
 }Vector;
 

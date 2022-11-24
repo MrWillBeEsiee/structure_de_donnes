@@ -13,10 +13,10 @@ test_vector.o: test_vector.c
 
 vector.o: vector.c
 	$(CC) -c -o $@ $< $(CFLAGS)
-	
+
 test_random: test_random.o random.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
-	
+
 test_random.o: test_random.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 

@@ -6,97 +6,95 @@
 
 Vector* vector_alloc(size_t n){
 
-    Vector* theVect = (Vector*)malloc(sizeof(Vector));  // Alloue dynamiquement le Vector* theVect
-    theVect -> size = n;
-    theVect -> db = calloc(n + 10, n * sizeof(double));  // Initialise le tableau dynamique à 0.0
+    Vector* p_s_Vector = (Vector*)malloc(sizeof(Vector*));
+    p_s_Vector -> size = n;
+    p_s_Vector -> db = (double*)calloc(n, n * sizeof(double));
+    return p_s_Vector;
 }
 
-void vector_free(Vector* p_vector){
+void vector_free(Vector* p_s_Vector){
 
-    free(p_vector -> db);
-    p_vector -> db = NULL;  // Aucune idée de si c'est utile
-    p_vector -> size = 0;  // Aucune idée de si c'est utile
-    free(p_vector);
+    free(p_s_Vector -> db);
+    free(p_s_Vector);
+    p_s_Vector = NULL;
 }
 
-void vector_set(Vector* p_vector, size_t i, double v){
+void vector_set(Vector* p_s_Vector, size_t i, double v){
 
-    if (p_vector == NULL || i > p_vector -> size || i < 0) return;  // Evite tout problème
+    if (p_s_Vector == NULL || i >= p_s_Vector -> size) return;
 
-    (p_vector -> db)[i] = v;
-
+    p_s_Vector -> db[i] = v;
 }
 
-void vector_get(Vector* p_vector, size_t i, double * pv){
+void vector_get(Vector* p_s_vector, size_t i, double * pv){
 
-    if (p_vector == NULL || i > p_vector -> size || i < 0 || pv == NULL) return;  // Evite tout problème
-
-    *pv = (p_vector -> db)[i];
+    if (p_s_vector == NULL || i >= p_s_vector -> size || pv == NULL) return;
+    *pv = p_s_vector -> db[i];
 }
 
-void vector_insert(Vector* p_vector, size_t i, double v){
+void vector_insert(Vector* p_s_Vector, size_t i, double v){
 
-    if (p_vector == NULL || i > p_vector -> size || i < 0) return;  // Evite tout problème
+    if (p_s_Vector == NULL || i >= p_s_Vector -> size) return;
 
-    p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size + 1) * sizeof(double));
-    (p_vector -> db)[p_vector -> size] = v;  // size = 4 avant, insert à db[4]
-    (p_vector -> size) ++;  // Augmenter la taille
-}
-
-void vector_erase(Vector* p_vector, size_t i){
-
-    if (p_vector == NULL || i > p_vector -> size || i < 0) return;  // Evite tout problème
-
-    double* tempDb = (double*)calloc ((p_vector -> size) - 1, (p_vector->size-1) * sizeof(double));
-    memcpy(tempDb, p_vector -> db, i*sizeof(double));
-    memcpy(tempDb + (i*sizeof(double)), (p_vector -> db) + (i+1)*sizeof(double), p_vector -> size - i);
-    p_vector -> size --;
-    p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size) * sizeof(double));  // La taille est déjà réduite ici
-
-    for (int i = 0; i < (p_vector -> size); i++){
-        (p_vector -> db)[i] = tempDb[i];
+    p_s_Vector -> db = (double*)realloc(p_s_Vector -> db, (p_s_Vector -> size + 1) * sizeof(double));
+    if(i == p_s_Vector -> size-1){
+        vector_set(p_s_Vector, i, v);
+        return;
     }
+    memcpy(p_s_Vector -> db+i, p_s_Vector+i+1, (p_s_Vector -> size -i) * sizeof (double));
+    p_s_Vector -> db[i] = v;
+    p_s_Vector -> size ++;
+}
 
-    free(tempDb);
-    tempDb = NULL;
+void vector_erase(Vector* p_s_Vector, size_t i){
+
+    if (p_s_Vector == NULL || i >= p_s_Vector -> size) return;
+    if(p_s_Vector -> size == 1){
+        free(p_s_Vector -> db);
+        return;
+    }
+    if(i == p_s_Vector -> size-1){
+        p_s_Vector -> size --;
+        realloc(p_s_Vector -> db,(p_s_Vector -> size) * sizeof(double));
+        return;
+    }
+    p_s_Vector -> size --;
+    memmove(p_s_Vector -> db+i, p_s_Vector -> db+i+1, (p_s_Vector -> size -i) * sizeof (double));
+
+    p_s_Vector -> db = realloc(p_s_Vector -> db, (p_s_Vector -> size) * sizeof(double));
+
 }
 
 void vector_push_back(Vector* p_vector, double v){
 
-    if (p_vector == NULL) return;  // Evite tout problème
+    vector_insert(p_vector,p_vector->size-1, v);
 
-    p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size +1) * sizeof(double));
-    p_vector -> db[p_vector->size+1] = v;
 }
 
 void vector_pop_back(Vector* p_vector){
 
-    if (p_vector == NULL) return;  // Evite tout problème
+    vector_erase(p_vector,p_vector->size-1);
 
-    vector_erase(p_vector, p_vector->size);
-    p_vector->size--;
-    p_vector -> db = (double*)realloc(p_vector -> db, (p_vector -> size) * sizeof(double));
 }
 
 void vector_clear(Vector* p_vector){
 
-    if (p_vector == NULL) return;  // Evite tout problème
+    if (p_vector == NULL) return;
 
     while(p_vector->size != 0)
         vector_erase(p_vector, p_vector->size);
-    vector_free(p_vector);
 }
 
 int vector_empty(Vector* p_vector){
 
-    if (p_vector == NULL) return 0;  // Evite tout problème
+    if (p_vector == NULL) return 0;
 
     return p_vector->size == 0 ? 0 : 1;
 }
 
 size_t vector_size(Vector* p_vector){
 
-    if (p_vector == NULL) return 0;  // Evite tout problème
+    if (p_vector == NULL) EXIT_FAILURE;
 
     return p_vector->size;
 }
