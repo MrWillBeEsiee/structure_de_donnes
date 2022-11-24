@@ -11,7 +11,7 @@ int main(){
             printf("%f ", p_s_Vector -> db[i]);
         }
         printf("]\n");
-    }
+    };
 
     Vector *p_s_Vector = vector_alloc(10);
 
@@ -19,7 +19,9 @@ int main(){
     printf("Positionnement 15.4 indice 2 et 2.3 indice 7 \n");
     afficheTab(p_s_Vector);
     vector_set(p_s_Vector,2,15.4);
+    printf("création 15.4 en position 2\n");
     vector_set(p_s_Vector,7,2.3);
+    printf("création 2.3 en position 7\n");
     afficheTab(p_s_Vector);
 
     //Test insert
@@ -31,6 +33,7 @@ int main(){
     //pour tester la fonction erase
     printf("Ecrasement de la valeur en indice 2 \n");
     afficheTab(p_s_Vector);
+    printf("Suppression de la position 2\n");
     vector_erase(p_s_Vector,2);
     afficheTab(p_s_Vector);
 
