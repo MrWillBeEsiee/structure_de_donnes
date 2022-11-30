@@ -6,7 +6,7 @@
 
 // ===== WILLIAM --> Fait " valgrind --leak-check=full ./test_random " pour avoir un bon truc  ===== //
 
-int main(int argc, char*argv[]){
+int main(int argc, char*argv[]){        
     srand(time(NULL));
 
     double a = 25.0;
@@ -67,13 +67,15 @@ int main(int argc, char*argv[]){
 
     // ===== RANDOM CHAR ===== //
     char test_random_char = random_char('a', 'z');
-    if (((int)test_random_char < (int)('a') || (int)test_random_char >= (int)('z')))
+    printf("Char 1 = %c | int %d\n", test_random_char, test_random_char);
+    if ((test_random_char < ('a') || test_random_char >= ('z')))
     {
         printf("\nrandom_char failure 1\n");
         return EXIT_FAILURE;
     }
     test_random_char = random_char('H', 'z');
-    if (((int)test_random_char < (int)('H') || (int)test_random_char >= (int)('z')))
+    printf("Char 2 = %c | int %d\n", test_random_char, test_random_char);
+    if ((test_random_char < ('H') || test_random_char >= ('z')))
     {
         printf("\nrandom_char failure 2\n");
         return EXIT_FAILURE;

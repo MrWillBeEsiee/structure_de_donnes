@@ -3,29 +3,29 @@
 
 double random_double(double a, double b){
 
-    double valeur = ((double)rand() * (b - a) / (double)RAND_MAX) + a;
+    double valeur = (((double)rand() / (double)RAND_MAX) * (b - a)) + a;
     return valeur;
 }
 
 float random_float(float a, float b){
 
-    float valeur = ((float)rand() * (b - a) / (float)RAND_MAX) + a;
+    float valeur = (((float)rand() / (double)RAND_MAX) * (b - a)) + a;
     return valeur;
 }
 
 size_t random_size_t(size_t a, size_t b){
 
-    size_t valeur = ((size_t)rand() * (b - a) / (size_t)RAND_MAX) + a;
+    size_t valeur = (((size_t)rand() / (double)RAND_MAX) * (b - a)) + a;
     return valeur;
 }
 
 int random_int(int a, int b){
-    int valeur = (rand() * (b - a) / RAND_MAX) + a;
+    int valeur = ((rand() / (double)RAND_MAX) * (b - a)) + a;
     return valeur;
 }
 
 char random_char(char a, char b){
-    int valeur = (rand() * ((int)b - (int)a) / (double)RAND_MAX) + (int)a;
+    char valeur = ((rand() / (double)RAND_MAX) * (b - a)) + a;
     return valeur;
 }
 
