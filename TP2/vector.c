@@ -94,7 +94,7 @@ int vector_empty(Vector* p_vector){
 
 size_t vector_size(Vector* p_vector){
 
-    if (p_vector == NULL) EXIT_FAILURE;
+    if (p_vector == NULL) return EXIT_FAILURE;
 
     return p_vector->size;
 }

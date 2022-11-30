@@ -4,6 +4,8 @@
 
 #include "random.h"
 
+// ===== WILLIAM --> Fait " valgrind --leak-check=full ./test_random " pour avoir un bon truc  ===== //
+
 int main(int argc, char*argv[]){
     srand(time(NULL));
 
@@ -12,6 +14,8 @@ int main(int argc, char*argv[]){
     double b = 27.0;
     double b2 = 2.0;
 
+
+    // ===== RANDOM DOUBLE ===== //
     double test_random_double = random_double(a, b);
     if ((test_random_double < a || test_random_double >= b))
     {
@@ -25,6 +29,7 @@ int main(int argc, char*argv[]){
         return EXIT_FAILURE;
     }
     
+    // ===== RANDOM FLOAT ===== //
     float test_random_float = random_float((float)a, (float)b);
     if ((test_random_float < (float)a || test_random_float >= (float)b))
     {
@@ -38,6 +43,7 @@ int main(int argc, char*argv[]){
         return EXIT_FAILURE;
     }
 
+    // ===== RANDOM SIZE_T ===== //
     size_t test_random_size_t = random_size_t((size_t)a, (size_t)b);
     if ((test_random_size_t < (size_t)a || test_random_size_t >= (size_t)b))
     {
@@ -45,6 +51,7 @@ int main(int argc, char*argv[]){
         return EXIT_FAILURE;
     }
 
+    // ===== RANDOM INT ===== //
     int test_random_int = random_int((int)a, (int)b);
     if ((test_random_int < (int)a || test_random_int >= (int)b))
     {
@@ -58,6 +65,33 @@ int main(int argc, char*argv[]){
         return EXIT_FAILURE;
     }
 
+    // ===== RANDOM CHAR ===== //
+    char test_random_char = random_char('a', 'z');
+    if (((int)test_random_char < (int)('a') || (int)test_random_char >= (int)('z')))
+    {
+        printf("\nrandom_char failure 1\n");
+        return EXIT_FAILURE;
+    }
+    test_random_char = random_char('H', 'z');
+    if (((int)test_random_char < (int)('H') || (int)test_random_char >= (int)('z')))
+    {
+        printf("\nrandom_char failure 2\n");
+        return EXIT_FAILURE;
+    }
+
+    // ===== RANDOM STRING INIT ===== //
+    size_t n = 8;
+    char* c = (char*)malloc(sizeof(char) * (int)n);
+
+    random_init_string(c, n);
+
+    for (int i = 0; i < (int)n; i++){
+        printf("%c", c[i]);
+    }
+
+    free(c);
+
+    // ===== ALL TEST PASSED ===== //
     printf("\nAll tests passed !\n");
     return EXIT_SUCCESS;
 }

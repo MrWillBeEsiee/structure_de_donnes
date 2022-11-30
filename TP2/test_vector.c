@@ -60,7 +60,7 @@ int main(){
     printf("Retourne la taille du tableau (9)\n");
     printf("taille : %lu\n",vector_size(p_s_Vector));
 
-    printf("Appelle de la fonction vectorclear\n")
+    printf("Appelle de la fonction vectorclear\n");
 
     //tester la fonction empty
     printf("Retourne 1 si le tableau est vide doit retourner 1\n");

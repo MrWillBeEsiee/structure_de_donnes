@@ -25,10 +25,14 @@ int random_int(int a, int b){
 }
 
 char random_char(char a, char b){
-
+    int valeur = (rand() * ((int)b - (int)a) / (double)RAND_MAX) + (int)a;
+    return valeur;
 }
 
 void random_init_string(char * c, size_t n){
 
+    for (int i = 0; i < (int)n; i++){
+        c[i] = random_char('A', 'Z');
+    }
 }
 
