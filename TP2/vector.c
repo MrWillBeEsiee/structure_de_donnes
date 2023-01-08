@@ -5,7 +5,6 @@
 
 
 Vector* vector_alloc(size_t n){
-
     Vector* p_s_Vector = (Vector*)malloc(sizeof(Vector*));
     p_s_Vector -> size = n;
     p_s_Vector -> db = (double*)calloc(n, n * sizeof(double));
@@ -27,7 +26,6 @@ void vector_set(Vector* p_s_Vector, size_t i, double v){
 }
 
 void vector_get(Vector* p_s_vector, size_t i, double * pv){
-
     if (p_s_vector == NULL || i >= p_s_vector -> size || pv == NULL) return;
     *pv = p_s_vector -> db[i];
 }
