@@ -53,7 +53,7 @@ void insert_erase_random(size_t init_size, size_t n){
         vector_insert(vector, a, b);
         vector_erase(vector, a);
     }
-    free(vector);
+    vector_free(vector);
 }
 
 void insert_erase_head(size_t init_size, size_t n){
@@ -63,6 +63,7 @@ void insert_erase_head(size_t init_size, size_t n){
         vector_insert(vector, 0, b);
         vector_erase(vector, 0);
     }
+    vector_free(vector);
 }
 
 void insert_erase_tail(size_t init_size, size_t n){
@@ -72,6 +73,7 @@ void insert_erase_tail(size_t init_size, size_t n){
         vector_push_back(vector,b);
         vector_pop_back(vector);
     }
+    vector_free(vector);
 }
 
 void read_write_random(size_t init_size, size_t n){
@@ -82,6 +84,7 @@ void read_write_random(size_t init_size, size_t n){
         double value = vector->db[a];
         vector_set(vector, c, value+1);
     }
+    vector_free(vector);
 }
 
 void read_write_sequential(size_t init_size, size_t n){
@@ -91,6 +94,7 @@ void read_write_sequential(size_t init_size, size_t n){
         double value = vector->db[i];
         vector_set(vector, a, value+1);
     }
+    vector_free(vector);
 }
 
 void bubble_sort(size_t init_size, size_t n){
@@ -116,4 +120,5 @@ void bubble_sort(size_t init_size, size_t n){
             if(tabsort) break;
         }
     }
+    vector_free(vector);
 }
