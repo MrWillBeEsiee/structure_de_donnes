@@ -54,11 +54,10 @@ all: $(TARGETS_BIN)
 # Si l'option COVERAGE est définie, génère la couverture de code après
 # avoir exécuté les cibles
 ifeq ($(COVERAGE), 1)
-	rm -f ./objs/*.gcda
-	rm -f ./objs/*.gcno
 	$(TARGETS_BIN)
 	lcov -c -d ./objs/ -o ./coverage/index$(SUFFIX).info
 	genhtml ./coverage/index$(SUFFIX).info -o ./coverage/html$(SUFFIX) --ignore-errors source
+	rm -f ./objs/*.gcda
 endif
 
 # Cible pour générer un exécutable : dépend de tous les fichiers objet
