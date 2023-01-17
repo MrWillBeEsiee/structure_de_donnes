@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "vector.h"
+#include "../headers/vector.h"
 
 void afficheTab(Vector *p_s_Vector){
     printf("[ ");

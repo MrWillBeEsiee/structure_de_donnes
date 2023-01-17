@@ -1,4 +1,4 @@
-#include "random.h"
+#include "../headers/random.h"
 #include <stdlib.h>
 
 double random_double(double a, double b){

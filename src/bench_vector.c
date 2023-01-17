@@ -3,8 +3,8 @@
 #include <time.h>
 #include <string.h>
 
-#include "random.h"
-#include "vector.h"
+#include "../headers/random.h"
+#include "../headers/vector.h"
 
 void insert_erase_random(size_t init_size, size_t n);
 void insert_erase_head(size_t init_size, size_t n);

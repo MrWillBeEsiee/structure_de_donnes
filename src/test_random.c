@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "random.h"
+#include "../headers/random.h"
 
 // ===== WILLIAM --> Fait " valgrind --leak-check=full ./test_random " pour avoir un bon truc  ===== //
 
