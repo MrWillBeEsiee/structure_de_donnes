@@ -1,14 +1,24 @@
-#include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include"../headers/vector.h"
+#include <math.h>
 
 
 Vector* vector_alloc(size_t n){
     Vector* p_s_Vector = (Vector*)malloc(sizeof(Vector*));
     p_s_Vector -> size = n;
-    p_s_Vector -> db = (double*)calloc(n, n * sizeof(double));
+#if VERSION==2
+    if(n < 16){
+        p_s_Vector -> db = (double*)calloc(16, sizeof(double));
+    }else{
+        p_s_Vector -> db = (double*)calloc((int)pow(2, ceil(log(n) / log(2))), sizeof(double));
+    }
+
+#else
+    p_s_Vector -> db = (double*)calloc(n, sizeof(double));
+#endif
     return p_s_Vector;
+
 }
 
 void vector_free(Vector* p_s_Vector){
@@ -26,15 +36,26 @@ void vector_set(Vector* p_s_Vector, size_t i, double v){
 }
 
 void vector_get(Vector* p_s_vector, size_t i, double * pv){
+
     if (p_s_vector == NULL || i >= p_s_vector -> size || pv == NULL) return;
+
     *pv = p_s_vector -> db[i];
 }
 
 void vector_insert(Vector* p_s_Vector, size_t i, double v){
 
     if (p_s_Vector == NULL || i >= p_s_Vector -> size) return;
-
+#if VERSION==2
+    if(p_s_Vector -> size < p_s_Vector -> capacity){
+        p_s_Vector -> db = (double*)realloc(p_s_Vector -> db, (p_s_Vector -> size + 1) * sizeof(double));
+    }else{
+        p_s_Vector -> db = (double*)realloc(p_s_Vector -> db, (p_s_Vector -> size * 2) * sizeof(double));
+        p_s_Vector -> capacity = p_s_Vector -> size * 2;
+    }
+#else
     p_s_Vector -> db = (double*)realloc(p_s_Vector -> db, (p_s_Vector -> size + 1) * sizeof(double));
+#endif
+
     if(i == p_s_Vector -> size-1){
         vector_set(p_s_Vector, i, v);
         return;
@@ -58,6 +79,11 @@ void vector_erase(Vector* p_s_Vector, size_t i){
     }
     p_s_Vector -> size --;
     memmove(p_s_Vector -> db+i, p_s_Vector -> db+i+1, (p_s_Vector -> size -i) * sizeof (double));
+#if VERSION==2
+    if(p_s_Vector -> size <= p_s_Vector -> capacity /4){
+        p_s_Vector -> capacity = p_s_Vector -> capacity /2;
+    }
+#endif
 
     p_s_Vector -> db = realloc(p_s_Vector -> db, (p_s_Vector -> size) * sizeof(double));
 

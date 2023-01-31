@@ -3,6 +3,9 @@
 
 typedef struct struct_vector{
     size_t size;
+#if VERSION==2
+    size_t capacity;
+#endif
     double* db;
 }Vector;
 
