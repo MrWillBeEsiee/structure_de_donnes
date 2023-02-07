@@ -6,6 +6,7 @@
 #include "../headers/random.h"
 #include "../headers/vector.h"
 
+//Déclarer des prototypes pour les fonctions qui effectuent différents tests
 void insert_erase_random(size_t init_size, size_t n);
 void insert_erase_head(size_t init_size, size_t n);
 void insert_erase_tail(size_t init_size, size_t n); 
@@ -14,17 +15,19 @@ void read_write_sequential(size_t init_size, size_t n);
 void bubble_sort(size_t init_size, size_t n);
 
 int main(int argc, char*argv[]){
+    // générateur de graine aléatoire
 	srand(time(NULL));
 
     int init_size = 0;
     int n = 0;
 
-
+    //Parse les arguments init_size et n
     sscanf(argv[2], "%d", &init_size);
     sscanf(argv[3], "%d", &n);
 
     printf("%d %d\n", init_size, n);
 
+    //appelle la fonction en fonction de arg[1]
     if(strcmp(argv[1], "insert_erase_random") == 0){
         insert_erase_random(init_size, n);
     }else if(strcmp(argv[1], "insert_erase_head") == 0){
@@ -44,7 +47,8 @@ int main(int argc, char*argv[]){
 
 	return 0;
 }
-
+//alloue un vector de taille init_size et répète n-fois l’ajout et suppression d’un élément
+//à des positions aléatoire
 void insert_erase_random(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
     for(size_t i = 0; i  < n; i++){
@@ -54,6 +58,8 @@ void insert_erase_random(size_t init_size, size_t n){
     vector_free(vector);
 }
 
+//alloue un vector de taille init_size et répète n-fois l’ajout et la suppression d’un
+//élément en tête
 void insert_erase_head(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
     for(size_t i = 0; i  < n; i++){
@@ -63,6 +69,8 @@ void insert_erase_head(size_t init_size, size_t n){
     vector_free(vector);
 }
 
+//alloue un vector de taille init_size et répète n-fois l’ajout et la suppression d’un
+//élément en queue
 void insert_erase_tail(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
     for(size_t i = 0; i  < n; i++){
@@ -72,6 +80,8 @@ void insert_erase_tail(size_t init_size, size_t n){
     vector_free(vector);
 }
 
+//alloue un vector de taille init_size et répète n-fois la lecture et réécriture de la valeur
+//lu incrémenté de 1 à des positions aléatoire
 void read_write_random(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
     for(size_t i = 0; i  < n; i++){
@@ -83,6 +93,8 @@ void read_write_random(size_t init_size, size_t n){
     vector_free(vector);
 }
 
+//alloue un vector de taille init_size et répète n-fois la lecture et réécriture de la
+//valeur lu incrémenté de 1 avec un parcours de la tête vers la queue
 void read_write_sequential(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
     for(size_t i = 0; i < n; i++){
@@ -93,6 +105,8 @@ void read_write_sequential(size_t init_size, size_t n){
     vector_free(vector);
 }
 
+//alloue un vector de taille init_size et répète n-fois l’écriture de tous les éléments du vecteur
+//avec des valeur aléatoire puis tri du vecteur avec le tri à bulles
 void bubble_sort(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
     for(size_t i = 0; i  < n; i++){
