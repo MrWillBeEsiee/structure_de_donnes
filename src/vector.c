@@ -1,7 +1,6 @@
 #include<stdlib.h>
 #include<string.h>
 #include"../headers/vector.h"
-#include <math.h>
 
 
 Vector* vector_alloc(size_t n){
@@ -13,7 +12,6 @@ Vector* vector_alloc(size_t n){
     }else{
         p_s_Vector -> db = (double*)calloc((int)pow(2, ceil(log(n) / log(2))), sizeof(double));
     }
-
 #else
     p_s_Vector -> db = (double*)calloc(n, sizeof(double));
 #endif
@@ -22,7 +20,6 @@ Vector* vector_alloc(size_t n){
 }
 
 void vector_free(Vector* p_s_Vector){
-
     free(p_s_Vector -> db);
     free(p_s_Vector);
     p_s_Vector = NULL;

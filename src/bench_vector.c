@@ -47,61 +47,57 @@ int main(int argc, char*argv[]){
 
 void insert_erase_random(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
-    for(int i = 0; i  < n; i++){
-        int a = random_int(0, vector_size(vector));
-        double b = random_double(0, 50);
-        vector_insert(vector, a, b);
-        vector_erase(vector, a);
+    for(size_t i = 0; i  < n; i++){
+        vector_insert(testVector, random_size_t(0, init_size), random_double(0, 100));
+        vector_erase(testVector, random_size_t(0, init_size));
     }
     vector_free(vector);
 }
 
 void insert_erase_head(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
-    for(int i = 0; i  < n; i++){
-        double b = random_double(0, 50);
-        vector_insert(vector, 0, b);
-        vector_erase(vector, 0);
+    for(size_t i = 0; i  < n; i++){
+        vector_insert(testVector, 0, random_double(0, 100));
+        vector_erase(testVector, 0);
     }
     vector_free(vector);
 }
 
 void insert_erase_tail(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
-    for(int i = 0; i  < n; i++){
-        double b = random_double(0, 50);
-        vector_push_back(vector,b);
-        vector_pop_back(vector);
+    for(size_t i = 0; i  < n; i++){
+        vector_push_back(testVector, random_double(0, 100));
+        vector_pop_back(testVector);
     }
     vector_free(vector);
 }
 
 void read_write_random(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
-    for(int i = 0; i  < n; i++){
-        int a = random_int(0, vector_size(vector));
-        int c = random_int(0, vector_size(vector));
-        double value = vector->db[a];
-        vector_set(vector, c, value+1);
+    for(size_t i = 0; i  < n; i++){
+        int random = random_int(0, init_size);
+        double result;
+        vector_get(testVector, random, &result);
+        vector_set(testVector, random, result + 1);
     }
     vector_free(vector);
 }
 
 void read_write_sequential(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
-    for(int i = 0; i  < n; i++){
-        int a = random_int(0, vector_size(vector));
-        double value = vector->db[i];
-        vector_set(vector, a, value+1);
+    for(size_t i = 0; i < n; i++){
+        double result;
+        vector_get(testVector, i, &result);
+        vector_set(testVector, i, result + 1);
     }
     vector_free(vector);
 }
 
 void bubble_sort(size_t init_size, size_t n){
     Vector* vector = vector_alloc(init_size);
-    for(int i = 0; i  < n; i++){
-        for(int j = 0; j < vector_size(vector); j++){
-            vector_insert(vector, j, random_double(0, 50));
+    for(size_t i = 0; i  < n; i++){
+        for(size_t j = 0; j < vector_size(vector); j++){
+            vector_insert(vector, j, random_double(0, 100));
         }
 
         for(size_t i = vector_size(vector)-1; i > 0; i--){
